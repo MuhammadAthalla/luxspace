@@ -1,7 +1,10 @@
 <?php
 
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FrontendController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -21,14 +24,13 @@ Route::get('/', function () {
 Route::get('/', [FrontendController::class, 'index'])->name('index');
 Route::get('/details/{slug}',[FrontendController::class,'details'])->name('details');
 Route::get('/cart',[FrontendController::class,'cart'])->name('cart');
+Route::get('/cart',[FrontendController::class,'checkout'])->name('checkout-success');
 
 
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+
+
+Route::middleware(['auth:sanctum',config('jetstream.auth_session'),'verified', 'IsAdmin'])
+->name('dashboard.')->prefix('dashboard')->group(function(){
+Route::get('/',[DashboardController::class,'index'])->name('index');
+Route::resource('product', ProductController::class);
 });
