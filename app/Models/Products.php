@@ -13,7 +13,7 @@ class Products extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillabel = [
+    protected $fillable = [
 
         'title', 'price', 'description', 'qty', 'slug'
 

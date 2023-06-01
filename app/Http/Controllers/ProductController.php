@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
 use App\Models\Products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Yajra\DataTables\Facades\DataTables;
 
 class ProductController extends Controller
@@ -40,9 +42,13 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $Request)
     {
-        //
+        $data = $Request->all();
+        $data['slug'] = Str::slug($Request->title);
+        Products::create($data);
+
+        return redirect()->route('dashboard.product.index');
     }
 
     /**

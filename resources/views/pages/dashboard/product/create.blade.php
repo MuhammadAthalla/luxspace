@@ -82,7 +82,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                     qty
                                 </label>
-                                <input type="number" placeholder="Product Quantity" value="{{ old('qty') }}" name="title" class="block w-full bg-gray-700 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
+                                <input type="number" placeholder="Product Quantity" value="{{ old('qty') }}" name="qty" class="block w-full bg-gray-700 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3">
