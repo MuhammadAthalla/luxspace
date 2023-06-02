@@ -70,9 +70,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Products $products)
+    public function edit(Products $product)
     {
-        return  view('pages.dashboard.product.edit',compact('products'));
+        return  view('pages.dashboard.product.edit',compact('product'));
     }
 
     /**

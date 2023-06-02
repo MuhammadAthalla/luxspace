@@ -50,15 +50,16 @@
                     </div>
                 </div>
                 @endif
-                <form action="{{route('dashboard.product.index')}}" class="w-full" method="post" enctype="multipart/form-data">
+                <form action="{{route('dashboard.product.update',$product->id)}}" class="w-full" method="post" enctype="multipart/form-data">
                     @csrf
+                    @method('PATCH')
                     <div class="px-4 py-5 bg-white sm:p-6 rounded shadow-lg">
                         <div class="flex flex-wrap -mx-3 ">
                             <div class="w-full px-3 mb-6">
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                     Name
                                 </label>
-                                <input type="text" placeholder="Product Name" value="{{ $products->title }}" name="title" class="block w-full bg-gray-700 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
+                                <input type="text" placeholder="Product Name" value="{{old('title') ?? $product->title }}" name="title" class="block w-full bg-gray-300 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3">
@@ -66,7 +67,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                     description
                                 </label>
-                                <textarea name="description" id="description" class="block w-full bg-gray-700 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">{!!old('description')!!}</textarea>
+                                <textarea name="description" id="description" class="block w-full bg-gray-300 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">{!!old('descriotion') ??$product->description!!}</textarea>
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3">
@@ -74,7 +75,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                     Price
                                 </label>
-                                <input type="number" placeholder="Product price" value="{{ old('price') }}" name="price" class="block w-full bg-gray-700 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
+                                <input type="number" placeholder="Product price" value="{{ old('price') ?? $product->price }}" name="price" class="block w-full bg-gray-300 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3">
@@ -82,7 +83,7 @@
                                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2">
                                     qty
                                 </label>
-                                <input type="number" placeholder="Product Quantity" value="{{ old('qty') }}" name="qty" class="block w-full bg-gray-700 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
+                                <input type="number" placeholder="Product Quantity" value="{{old('qty') ?? $product->qty }}" name="qty" class="block w-full bg-gray-300 text-gray-700 border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-pink-500">
                             </div>
                         </div>
                         <div class="flex flex-wrap -mx-3">
