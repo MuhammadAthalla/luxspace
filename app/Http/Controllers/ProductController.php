@@ -28,6 +28,11 @@ class ProductController extends Controller
                 <a href="' . route('dashboard.product.edit', $item->id) . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg">
                 Edit
                 </a>
+                
+                <form class="inline-block" method="POST" action="'.route('dashboard.product.destroy',$item->id).'">'. method_field('delete') . csrf_field() . '
+                
+                <button class="bg-red-500 hover:bg-red-700 text-white font-bold py-1.5 mx-2 px-4 rounded shadow-lg " type="submit">Delete </button>
+                </form>
                 ';
                 })
                 ->editColumn('price', function ($item) {
@@ -72,22 +77,27 @@ class ProductController extends Controller
      */
     public function edit(Products $product)
     {
-        return  view('pages.dashboard.product.edit',compact('product'));
+        return  view('pages.dashboard.product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ProductRequest $Request, Products $product)
     {
-        //
+        $data = $Request->all();
+        $data['slug'] = Str::slug($Request->title);
+        $product->update($data);
+
+        return redirect()->route('dashboard.product.index');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Products $product)
     {
-        //
+        $product->delete();
+        return redirect()->route('dashboard.product.index');
     }
 }
