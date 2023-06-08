@@ -10,14 +10,14 @@ class transactionItems extends Model
 {
     use HasFactory;
 
-    protected $guarded=[];
+    protected $guarded = [];
 
     /**
      * Get the product associated with the transactionItems
      *
      * @return \Illuminaproduct\Database\id\Relproduct_id\HasOne
      */
-    public function products(): HasOne
+    public function product(): HasOne
     {
         return $this->hasOne(Products::class, 'id', 'product_id');
     }

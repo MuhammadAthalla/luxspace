@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\transactionItems;
 use App\Models\Transactions;
 use Illuminate\Http\Request;
 use Yajra\DataTables\Facades\DataTables;
@@ -20,7 +21,7 @@ class TransactionController extends Controller
                 ->addColumn('action', function ($item) {
 
                     return
-                        '<a href="' . route('dashboard.transaction.index', $item->id) . '" class="bg-pink-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded shadow-lg" >show</a>
+                        '<a href="' . route('dashboard.transaction.show', $item->id) . '" class="bg-pink-500 hover:bg-red-700 text-white font-bold py-2 px-4 mx-2 rounded shadow-lg" >show</a>
 
                 <a href="' . route('dashboard.transaction.edit', $item->id) . '" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded shadow-lg" >Edit</a>
                 
@@ -52,17 +53,25 @@ class TransactionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Transactions $transaction)
     {
-        //
+        if (request()->ajax()) {
+
+            $query = transactionItems::with('product')->where('transaction_id',$transaction->id);
+            return DataTables::of($query)
+                ->editColumn('product.price', function ($item) {
+                    return number_format($item->product->price);
+                })->make();
+        }
+        return view('pages.dashboard.transaction.show',compact('transaction'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Transactions $transaction)
     {
-        //
+        return view('pages.dashboard.transaction.edit',compact('transaction'));
     }
 
     /**
